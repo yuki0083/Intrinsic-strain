@@ -151,11 +151,7 @@ def cal_delta_T(data, delta_z_list, delta_y_list, intrinsic_y_list, h):
 
 #Iを計算
 def cal_I(data, z_list, delta_x, delta_z_list, h):
-    cal_I = 0
-    for i in range(len(data)):
-        z = z_list[i]
-        delta_z = delta_z_list[i]
-        cal_I += delta_x * delta_z * ((z + h/2)**2)
+    cal_I = h**3/12
 
     return cal_I
 """ 
