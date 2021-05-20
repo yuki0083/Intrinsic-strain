@@ -25,5 +25,7 @@ def write_excel_sheet(intrinsic_path_list, input_directory_path, col_num, col_na
         write_list_2d(ws, col_name, start_row=2, start_col=start_col)
         write_list_2d(ws, results, start_row=3, start_col=start_col)
 
-    save_path = os.path.join(input_directory_path, 'result.xlsx')
+    directory_name = os.path.basename(input_directory_path)
+    result_file_name = directory_name + '_' + 'result.xlsx'
+    save_path = os.path.join(input_directory_path, result_file_name)
     wb.save(save_path)
