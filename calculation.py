@@ -49,7 +49,7 @@ def calculation(xyz_path = './xyz-coordinate.csv', intrinsic_path='./power-data/
         theta_T = utils.cal_theta_T(data, z_list, delta_y_list, delta_z_list, intrinsic_y_list, h, I)
 
         #θLを計算
-        theta_L = utils.cal_theta_L(data, z_list, delta_x, delta_z_list, intrinsic_x_list, h, I)
+        theta_L = utils.cal_theta_L(data, z_list, delta_y_list, delta_z_list, intrinsic_x_list, h, I)
 
         result = [x, tendon_force, delta_T, theta_T, theta_L ]
         results.append(result)

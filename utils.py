@@ -156,13 +156,14 @@ def cal_I(data, z_list, delta_x, delta_z_list, h):
     return cal_I
 
 #θLを計算
-def cal_theta_L(data, z_list, delta_x, delta_z_list, intrinsic_x_list, h, I):
+def cal_theta_L(data, z_list, delta_y_list, delta_z_list, intrinsic_x_list, h, I):
     theta_L = 0
     for i in range(len(data)):
         z = z_list[i]
+        delta_y = delta_y_list[i]
         delta_z = delta_z_list[i]
         intrinsic_x = intrinsic_x_list[i]        
-        theta_L += delta_x * delta_z * (z + h/2) * intrinsic_x
+        theta_L += delta_y * delta_z * (z + h/2) * intrinsic_x
         
     return theta_L/I
 
