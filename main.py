@@ -6,11 +6,12 @@ import os
 
 
 #列の名前
-col_name = [['x', '縦収縮力', '固有横収縮', '固有角変形(θT)']]
+col_name = [['x', '縦収縮力', '固有横収縮', '固有角変形(θT)','固有角変形(θL)']]
 col_num = len(col_name[0])
 
 #変数
-h = 0.7
+h = 0.7 #TODO　高さを指定しているので直す
+
 E = 175000.0 #ヤング率
 
 #xyz_path = './xyz-coordinate.csv' #xyz座標csvファイルノパス

@@ -154,7 +154,7 @@ def cal_I(data, z_list, delta_x, delta_z_list, h):
     cal_I = h**3/12
 
     return cal_I
-""" 
+
 #θLを計算
 def cal_theta_L(data, z_list, delta_x, delta_z_list, intrinsic_x_list, h, I):
     theta_L = 0
@@ -165,7 +165,7 @@ def cal_theta_L(data, z_list, delta_x, delta_z_list, intrinsic_x_list, h, I):
         theta_L += delta_x * delta_z * (z + h/2) * intrinsic_x
         
     return theta_L/I
-"""
+
 
 # θTを計算
 def cal_theta_T(data, z_list, delta_y_list, delta_z_list, intrinsic_y_list, h, I):
