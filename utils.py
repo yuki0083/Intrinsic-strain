@@ -1,8 +1,16 @@
 import csv
+import pandas as pd
 
 #csvを読み込みリストに変換する関数
 def make_data_from_csv(csv_file_path):
-    data_from_csv = []
+
+  
+    #一行目をheaderとして、csv読み込み
+    df = pd.read_csv(csv_file_path, header=1, encoding='shift-jis')   
+    df = df.drop(df.columns[0],axis='columns')#0列目を削除
+
+    return df
+    """
     with open(csv_file_path) as f:
         reader = csv.reader(f)
         row_num = 0
@@ -18,6 +26,15 @@ def make_data_from_csv(csv_file_path):
                 col_num += 1
             data_from_csv.append(row)
         return data_from_csv
+    """
+
+#座標のdfを並び替える関数
+def sort_df_xyz(df_xyz):
+    df_xyz = df_xyz.sort_values(['中心(X)', '中心(Y)', '中心(Z)'])
+
+    return df_xyz
+
+
 
 
 

@@ -3,13 +3,13 @@ import utils
 
 
 def calculation(xyz_path = './xyz-coordinate.csv', intrinsic_path='./power-data/1000w-intrinsic.csv', h=0.7, E=175000.0):
-    #csvを読み込みリストに変換
-    xyz_data = utils.make_data_from_csv(xyz_path)#(要素数, 5(列, 要素番号, x, y ,z))
-    intrinsic_data = utils.make_data_from_csv(intrinsic_path)#(要素数, 8(列, 要素番号, 塑性ひずみx, 塑性ひずみy ,塑性ひずみz, 塑性ひずみxy, 塑性ひずみyz, 塑性ひずみzx))
-
+    #csvを読み込みdfに変換
+    df_xyz = utils.make_data_from_csv(xyz_path)#(要素数, 4( 要素番号, x, y ,z))
+    df_intrinsic = utils.make_data_from_csv(intrinsic_path)#(要素数, 7( 要素番号, 塑性ひずみx, 塑性ひずみy ,塑性ひずみz, 塑性ひずみxy, 塑性ひずみyz, 塑性ひずみzx))
+    df_xyz = utils.sort_df_xyz(df_xyz)#座標dfを昇順に並び替え
 
     #dataを結合
-    xyz_intrinsic_data = utils.combine(xyz_data, intrinsic_data)
+    xyz_intrinsic_data = utils.combine(df_xyz, df_intrinsic)
 
 
 

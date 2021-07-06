@@ -15,6 +15,7 @@ h = 0.7 #TODO　高さを指定しているので直す
 E = 175000.0 #ヤング率
 
 #xyz_path = './xyz-coordinate.csv' #xyz座標csvファイルノパス
+
 xyz_path = input('座標のcsvファイルのパスを入力')
 xyz_path = xyz_path.replace('"', '')# "を削除
 
