@@ -1,5 +1,6 @@
 import csv
 import pandas as pd
+import numpy as np
 
 #csvを読み込みリストに変換する関数
 def make_data_from_csv(csv_file_path):
@@ -10,29 +11,58 @@ def make_data_from_csv(csv_file_path):
     df = df.drop(df.columns[0],axis='columns')#0列目を削除
 
     return df
-    """
-    with open(csv_file_path) as f:
-        reader = csv.reader(f)
-        row_num = 0
-        for row in reader:
-            # 先頭の2行を無視
-            row_num += 1
-            if row_num <= 2:
-               continue
-            # float型に変換
-            col_num = 0
-            for i in row:
-                row[col_num] = float(i)
-                col_num += 1
-            data_from_csv.append(row)
-        return data_from_csv
-    """
 
 #座標のdfを並び替える関数
 def sort_df_xyz(df_xyz):
     df_xyz = df_xyz.sort_values(['中心(X)', '中心(Y)', '中心(Z)'])
-
     return df_xyz
+
+
+
+#大小関係の数値誤差を抑制する変数
+mod = 0.00001
+#Δx,Δy,Δzを計算する関数
+def delta_df_xyz(df_xyz, col_num):#col_num=1 == 中心(x)
+
+
+    x_before = None
+    delta_x_before = None
+
+    for i in range(len(df_xyz)):
+        x = df_xyz.iat[i,col_num]#中心(x)は一列目
+
+        if ( i == 0) or ( x+mod < x_before):
+            x_next = cal_x_next(df_xyz, i, col_num) #TODO
+            delta_x = abs(x_next - x)
+
+        elif (x > x_before+mod):
+            delta_x = 2*((x - x_before) - 1/2 * delta_x_before)#TODO
+        
+        elif(x == x_before):
+            delta_x = delta_x_before
+        
+
+
+        #df_xyz.iat[i, col_num+3]= delta_x#delta_xは四行目#df_xyzに代入
+        delta_x_before = delta_x
+        x_before = x
+        #i++
+    
+    return df_xyz
+        
+#x_nextを求める関数
+def cal_x_next(df_xyz, i, col_num):
+    x = df_xyz.iat[i,col_num]#中心(x)は一列目
+    while True:
+        i+=1
+        x_next = df_xyz.iat[i,col_num]
+        if (x_next > x+mod):
+            break
+    
+    return x_next
+
+        
+
 
 
 

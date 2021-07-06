@@ -8,9 +8,27 @@ def calculation(xyz_path = './xyz-coordinate.csv', intrinsic_path='./power-data/
     df_intrinsic = utils.make_data_from_csv(intrinsic_path)#(要素数, 7( 要素番号, 塑性ひずみx, 塑性ひずみy ,塑性ひずみz, 塑性ひずみxy, 塑性ひずみyz, 塑性ひずみzx))
     df_xyz = utils.sort_df_xyz(df_xyz)#座標dfを昇順に並び替え
 
+
+    #delta_xの列を追加
+    df_xyz['Δx']=0
+    df_xyz['Δy']=0
+    df_xyz['Δz']=0
+
+    #Δxの計算
+    df_xyz = utils.delta_df_xyz(df_xyz, col_num=1)
+    #Δyの計算
+    df_xyz = utils.delta_df_xyz(df_xyz, col_num=2)
+    #Δzの計算
+    df_xyz = utils.delta_df_xyz(df_xyz, col_num=3)
+
+    print('hとzcを計算')
+
+
+      #Δx,Δy,Δzの計算
+    """
     #dataを結合
     xyz_intrinsic_data = utils.combine(df_xyz, df_intrinsic)
-
+    """
 
 
     #xyz_intrinsic_dataをxの値で分割(x_dict_keysはxの値が入ってる)
