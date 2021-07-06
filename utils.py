@@ -26,7 +26,7 @@ def make_data_from_csv(csv_file_path):
 def combine(data1,data2):
     combined_data = []
     if len(data1) != len(data2):
-        print('列の数が異なります')
+        print('要素数が異なります')
         return
 
     for i in range(len(data1)):
