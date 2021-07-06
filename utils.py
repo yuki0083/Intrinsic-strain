@@ -23,39 +23,46 @@ def sort_df_xyz(df_xyz):
 mod = 0.00001
 #Δx,Δy,Δzを計算する関数
 def delta_df_xyz(df_xyz, col_num):#col_num=1 == 中心(x)
+    
+    col_name = df_xyz.columns[col_num]#列の名前
+    delta_col_name = df_xyz.columns[col_num+3]#Δ列の名前
 
+    delta_x_array = np.empty(0)#delta_xのarray
+    x_array = df_xyz[col_name].to_numpy()#xのarray
 
-    x_before = None
+    #m-1
+    x_before = None 
     delta_x_before = None
 
     for i in range(len(df_xyz)):
-        x = df_xyz.iat[i,col_num]#中心(x)は一列目
+        x = x_array[i]
 
+        #xm < xm-1
         if ( i == 0) or ( x+mod < x_before):
-            x_next = cal_x_next(df_xyz, i, col_num) #TODO
+            x_next = cal_x_next(x_array, i) 
             delta_x = abs(x_next - x)
-
+        #xm > xm-1
         elif (x > x_before+mod):
-            delta_x = 2*((x - x_before) - 1/2 * delta_x_before)#TODO
-        
+            delta_x = 2*((x - x_before) - 1/2 * delta_x_before)
+        #xm = xm-1
         elif(x == x_before):
             delta_x = delta_x_before
         
+        delta_x_array = np.append(delta_x_array, delta_x)
 
-
-        #df_xyz.iat[i, col_num+3]= delta_x#delta_xは四行目#df_xyzに代入
         delta_x_before = delta_x
         x_before = x
-        #i++
-    
+
+    #delta_xのarrayをdfに代入
+    df_xyz[delta_col_name] = delta_x_array
     return df_xyz
         
 #x_nextを求める関数
-def cal_x_next(df_xyz, i, col_num):
-    x = df_xyz.iat[i,col_num]#中心(x)は一列目
+def cal_x_next(x_array, i):
+    x = x_array[i]
     while True:
         i+=1
-        x_next = df_xyz.iat[i,col_num]
+        x_next = x_array[i]
         if (x_next > x+mod):
             break
     

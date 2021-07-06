@@ -19,7 +19,7 @@ def calculation(xyz_path = './xyz-coordinate.csv', intrinsic_path='./power-data/
     #Δyの計算
     df_xyz = utils.delta_df_xyz(df_xyz, col_num=2)
     #Δzの計算
-    df_xyz = utils.delta_df_xyz(df_xyz, col_num=3)
+    df_xyz = utils.delta_df_xyz(df_xyz, col_num=3)#TODO
 
     print('hとzcを計算')
 
