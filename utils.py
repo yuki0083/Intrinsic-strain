@@ -68,9 +68,64 @@ def cal_x_next(x_array, i):
     
     return x_next
 
+def delta_df_z(df_xyz):
+    col_name = df_xyz.columns[3]#z(中心)列の名前
+    delta_col_name = df_xyz.columns[3+3]#Δ列の名前
+
+    delta_z_array = np.empty(0)#delta_zのarray
+    z_array = df_xyz[col_name].to_numpy()#zのarray
+
+    z1_num = 0
+    z_top = 0
+    while True:
+        zf_num = cal_zf_num(z_array,z1_num)
+        z_array_divided = z_array[z1_num :zf_num+1]#z_arrayから抽出
+        
+        delta_z_array_divided, zf = cal_delta_z(z_array_divided, z_top)
+        #TODO z_top
+        #TODO z_c
+        z1_num = zf_num + 1
+
+
+
+    for i in range(z_array.shape[0]):
+        z1_num = zf_num(z)
+
         
 
+#zf_numを求める関数
+def cal_zf_num(z_array, i):
+    z = z_array[i]
+    while True:
+        z_after = z_array[i+1]
+        if(z_after+mod < z):
+            return i
+        else:
+            i+=1
+            z=z_after
 
+#Δzを計算する関数
+def cal_delta_z(z_array_divided, z_top):
+    delta_z_divided_list = []
+    for i in range(len(z_array_divided)):
+        z_m = z_array_divided[len(z_array_divided)-i-1]#zfから取り出し
+        
+
+        if (i == 0):#zfの場合
+            delta_z = 2*abs(z_top - z_m)
+            z_f = z_m
+        else:
+
+            delta_z = 2*(abs(z_m_before - z_m)-delta_z_before/2)
+        
+        z_m_before = z_m#zm+1
+        delta_z_before = delta_z#Δzm+1
+
+        delta_z_divided_list.append(delta_z)
+               
+    delta_z_divided_list.reverse()#反転
+    delta_z_divided_array = np.array(delta_z_divided_list)
+    return delta_z_divided_array, z_f
 
 
 
