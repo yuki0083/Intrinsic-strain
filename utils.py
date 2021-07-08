@@ -18,18 +18,11 @@ def sort_df_xyz(df_xyz):
     return df_xyz
 
 
-#x_array,y_arrayの値が変わる位置を計算する関数
-def cal_change_num_array(df_xyz, col_num):
-    col_name = df_xyz.columns[col_num]#列の名前
-    change_num_array = np.empty(0)
-
-
-
 
 #大小関係の数値誤差を抑制する変数
 mod = 0.00001
-#Δx,Δy,Δzを計算する関数
-def delta_df_xyz(df_xyz, col_num):#col_num=1 == 中心(x)
+#Δx,Δy,Δzを計算する関数  #x_array,y_arrayの値が変わる位置を計算する関数
+def delta_df_xy(df_xyz, col_num):#col_num=1 == 中心(x)
     
     col_name = df_xyz.columns[col_num]#列の名前
     delta_col_name = df_xyz.columns[col_num+3]#Δ列の名前
@@ -79,18 +72,22 @@ def cal_x_next(x_array, i):
     
     return x_next
 
-def delta_df_z(df_xyz):
+
+#delta_zを計算する関数
+def delta_df_z(df_xyz, y_changes_num_list):
     col_name = df_xyz.columns[3]#z(中心)列の名前
     delta_col_name = df_xyz.columns[3+3]#Δ列の名前
 
     delta_z_array = np.empty(0)#delta_zのarray
     z_array = df_xyz[col_name].to_numpy()#zのarray
 
-    z1_num = 0
     z_top = 0
     i = 0
+    y_changes_num_list.append(len(z_array))
     while True:
-        zf_num = cal_zf_num(z_array,z1_num)
+        z1_num = y_changes_num_list[i]
+        zf_num = y_changes_num_list[i+1] - 1
+        #zf_num = cal_zf_num(z_array,z1_num)
         z_array_divided = z_array[z1_num :zf_num+1]#z_arrayから抽出
         if (i != 0):#z_topを計算
             zf = z_array[zf_num]
@@ -108,7 +105,7 @@ def delta_df_z(df_xyz):
         z1_num = zf_num + 1
         i+=1
         
-
+"""
 #zf_numを求める関数#この方法ではΔyが大きくなると上手くいかない
 def cal_zf_num(z_array, i):
     z = z_array[i]
@@ -122,6 +119,7 @@ def cal_zf_num(z_array, i):
         else:
             i+=1
             z=z_after
+"""
 
 #Δzを計算する関数
 def cal_delta_z(z_array_divided, z_top):
@@ -145,6 +143,11 @@ def cal_delta_z(z_array_divided, z_top):
     delta_z_divided_list.reverse()#反転
     delta_z_divided_array = np.array(delta_z_divided_list)
     return delta_z_divided_array, z_f
+
+
+
+
+
 
 
 
