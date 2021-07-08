@@ -104,22 +104,7 @@ def delta_df_z(df_xyz, y_changes_num_list):
 
         z1_num = zf_num + 1
         i+=1
-        
-"""
-#zf_numを求める関数#この方法ではΔyが大きくなると上手くいかない
-def cal_zf_num(z_array, i):
-    z = z_array[i]
-    while True:
-        #z_arrayの最後をzf_numとする
-        if(i+1== len(z_array)):
-            return i
-        z_after = z_array[i+1]
-        if(z_after+mod < z):
-            return i
-        else:
-            i+=1
-            z=z_after
-"""
+
 
 #Δzを計算する関数
 def cal_delta_z(z_array_divided, z_top):
@@ -143,6 +128,68 @@ def cal_delta_z(z_array_divided, z_top):
     delta_z_divided_list.reverse()#反転
     delta_z_divided_array = np.array(delta_z_divided_list)
     return delta_z_divided_array, z_f
+
+
+
+#hを計算する関数
+def cal_h_zc(df_xyz, y_changes_num_list):
+    z_col_name = df_xyz.columns[3]#z(中心)列の名前
+    z_array = df_xyz[z_col_name].to_numpy()#zのarray
+
+    delta_z_col_name = df_xyz.columns[3+3]#Δ列の名前
+    delta_z_array = df_xyz[delta_z_col_name].to_numpy()#delta_zのarray
+
+    h_array = np.empty(0)#hのarray
+    zc_array = np.empty(0)#zcのarray
+    
+    y_changes_num_list = y_changes_num_list[:-1]#y_change_num_listに余計なものがあるので修正した
+
+    for i in range(len(y_changes_num_list)):
+        z1_col_num = y_changes_num_list[i]
+        z1 = z_array[z1_col_num]
+        delta_z1 = delta_z_array[z1_col_num]
+
+        if (i != len(y_changes_num_list)-1):
+            zf_col_num = y_changes_num_list[i+1] - 1
+        else:
+            zf_col_num = len(df_xyz) - 1
+            
+        zf = z_array[zf_col_num]
+        delta_zf = delta_z_array[zf_col_num]
+
+
+        z_top = zf + delta_zf / 2
+        z_bottom = z1 - delta_z1 /2
+        #h,zcを計算
+        h = (z_top - z_bottom)
+        zc = (z_top + z_bottom) / 2
+        #同じ値のリストを作成
+        same_h_zc_num = zf_col_num - z1_col_num + 1
+        h_list_divided = [h]* same_h_zc_num
+        zc_list_divided = [zc] * same_h_zc_num
+
+        h_array = np.append(h_array, h_list_divided)
+        zc_array = np.append(zc_array, zc_list_divided)
+    
+    #df_xyzに書き込み
+    df_xyz['h'] = h_array
+    df_xyz['zc'] = zc_array
+
+    return df_xyz    
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
 
 
 

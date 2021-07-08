@@ -16,14 +16,18 @@ def calculation(xyz_path = './xyz-coordinate.csv', intrinsic_path='./power-data/
 
 
 
-    #Δxの計算
+    #Δxとx_arrayの変わる番号の計算
     df_xyz, x_changes_num_list = utils.delta_df_xy(df_xyz, col_num=1)
-    #Δyの計算
+    #Δyとy_array(z1_num)の変わる番号の計算
     df_xyz, y_changes_num_list = utils.delta_df_xy(df_xyz, col_num=2)
     #Δzの計算
-    #df_xyz = utils.delta_df_xyz(df_xyz, col_num=3)
     df_xyz = utils.delta_df_z(df_xyz, y_changes_num_list)
-
+    
+    #hとzcの列を追加
+    df_xyz['h']=0
+    df_xyz['zc']=0
+    #hとzcを計算
+    df_xyz = utils.cal_h_zc(df_xyz, y_changes_num_list)
     print('hとzcを計算')
 
 
