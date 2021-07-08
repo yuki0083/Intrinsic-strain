@@ -77,26 +77,33 @@ def delta_df_z(df_xyz):
 
     z1_num = 0
     z_top = 0
+    i = 0
     while True:
         zf_num = cal_zf_num(z_array,z1_num)
         z_array_divided = z_array[z1_num :zf_num+1]#z_arrayから抽出
+        if (i != 0):#z_topを計算
+            zf = z_array[zf_num]
+            z_top = z_top + (zf - zf_old)
         
-        delta_z_array_divided, zf = cal_delta_z(z_array_divided, z_top)
-        #TODO z_top
+        delta_z_array_divided, zf_old = cal_delta_z(z_array_divided, z_top)
+        delta_z_array = np.append(delta_z_array, delta_z_array_divided)
         #TODO z_c
+
+        if(zf_num+1 == len(z_array)):
+            df_xyz[delta_col_name] = delta_z_array  #df_xyzに書き込み
+            return df_xyz
+
         z1_num = zf_num + 1
-
-
-
-    for i in range(z_array.shape[0]):
-        z1_num = zf_num(z)
-
+        i+=1
         
 
 #zf_numを求める関数
 def cal_zf_num(z_array, i):
     z = z_array[i]
     while True:
+        #z_arrayの最後をzf_numとする
+        if(i+1== len(z_array)):
+            return i
         z_after = z_array[i+1]
         if(z_after+mod < z):
             return i
