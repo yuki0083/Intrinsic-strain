@@ -142,7 +142,8 @@ def cal_h_zc(df_xyz, y_changes_num_list):
     h_array = np.empty(0)#hのarray
     zc_array = np.empty(0)#zcのarray
     
-    y_changes_num_list = y_changes_num_list[:-1]#y_change_num_listに余計なものがあるので修正した
+    #y_change_num_listに余計なものがあるので修正した(86行目が原因)
+    y_changes_num_list = y_changes_num_list[:-1]
 
     for i in range(len(y_changes_num_list)):
         z1_col_num = y_changes_num_list[i]
