@@ -14,11 +14,12 @@ def calculation(xyz_path = './xyz-coordinate.csv', intrinsic_path='./power-data/
     df_xyz['Δy']=0
     df_xyz['Δz']=0
 
-    #Δxの計算
 
-    df_xyz = utils.delta_df_xyz(df_xyz, col_num=1)
+
+    #Δxの計算
+    df_xyz, x_changes_num_list = utils.delta_df_xyz(df_xyz, col_num=1)
     #Δyの計算
-    df_xyz = utils.delta_df_xyz(df_xyz, col_num=2)
+    df_xyz, y_changes_num_list = utils.delta_df_xyz(df_xyz, col_num=2)
     #Δzの計算
     #df_xyz = utils.delta_df_xyz(df_xyz, col_num=3)
     df_xyz = utils.delta_df_z(df_xyz)
