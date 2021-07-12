@@ -74,14 +74,15 @@ def cal_x_next(x_array, i):
 
 
 #delta_zを計算する関数
-def delta_df_z(df_xyz, y_changes_num_list):
+def delta_df_z(df_xyz, y_changes_num_list, z_top=0):
     col_name = df_xyz.columns[3]#z(中心)列の名前
     delta_col_name = df_xyz.columns[3+3]#Δ列の名前
 
     delta_z_array = np.empty(0)#delta_zのarray
     z_array = df_xyz[col_name].to_numpy()#zのarray
 
-    z_top = 0
+
+
     i = 0
     y_changes_num_list.append(len(z_array))
     while True:

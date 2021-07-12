@@ -16,11 +16,11 @@ E = 175000.0 #ヤング率
 
 #xyz_path = './xyz-coordinate.csv' #xyz座標csvファイルノパス
 
-xyz_path = input('座標のcsvファイルのパスを入力')
+xyz_path = input('座標のcsvファイルのパスを入力:')
 xyz_path = xyz_path.replace('"', '')# "を削除
 
 #input_directory_path = './power-data'
-input_directory_path = input('csvファイルのあるディレクトリパスを入力')#csvファイルのあるディレトリを指定
+input_directory_path = input('csvファイルのあるディレクトリパスを入力:')#csvファイルのあるディレトリを指定
 input_directory_path = input_directory_path.replace('"', '')# "を削除
 
 glob_for_csv = input_directory_path + '/*.csv'

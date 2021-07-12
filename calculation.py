@@ -20,8 +20,11 @@ def calculation(xyz_path = './xyz-coordinate.csv', intrinsic_path='./power-data/
     df_xyz, x_changes_num_list = utils.delta_df_xy(df_xyz, col_num=1)
     #Δyとy_array(z1_num)の変わる番号の計算
     df_xyz, y_changes_num_list = utils.delta_df_xy(df_xyz, col_num=2)
+
+    #z_topを入力
+    z_top = float(input('z_top(x最小,y最小の要素の内zが最も大きい要素の表面の座標)を入力:'))
     #Δzの計算
-    df_xyz = utils.delta_df_z(df_xyz, y_changes_num_list)
+    df_xyz = utils.delta_df_z(df_xyz, y_changes_num_list, z_top)
     
     #hとzcの列を追加
     df_xyz['h']=0
