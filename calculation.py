@@ -50,6 +50,8 @@ def cal_inherent_deformations(df_xyz, df_intrinsic):
     inherent_y_list = cal_intrinsic.cal_inherent_y(df_xyz, df_intrinsic, x_changes_num_list)
     #θx*を計算
     theta_x_list = cal_intrinsic.cal_theta_x(df_xyz, df_intrinsic, x_changes_num_list)
+    #θx*を計算
+    theta_y_list = cal_intrinsic.cal_theta_y(df_xyz, df_intrinsic, x_changes_num_list)
     return 0
 
 """
