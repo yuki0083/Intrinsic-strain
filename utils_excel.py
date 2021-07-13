@@ -8,6 +8,20 @@ def write_list_2d(sheet, list_2d, start_row, start_col):
         for x, cell in enumerate(row): #x:列番号
             sheet.cell(row = start_row + y,column=start_col + x, value=list_2d[y][x])
 
+def change_shape(inherent_deformations):
+    changed_inherent_defomations = []
+    for i in range(len(inherent_deformations[0])):
+        x = inherent_deformations[0][i]
+        inherent_x = inherent_deformations[1][i]
+        inherent_y = inherent_deformations[2][i]
+        theta_x = inherent_deformations[3][i]
+        theta_y = inherent_deformations[4][i]
+
+        row_list = [x, inherent_x, inherent_y, theta_x, theta_y]
+        changed_inherent_defomations.append(row_list)
+    
+    return changed_inherent_defomations
+
 def write_excel_sheet(intrinsic_path_list, input_directory_path, col_num, col_name, xyz_path ='./xyz-coordinate.csv',  h=0.7, E=175000.0):
     wb = openpyxl.Workbook()  # ファイル新規作成
     # ws = wb.active
@@ -22,10 +36,14 @@ def write_excel_sheet(intrinsic_path_list, input_directory_path, col_num, col_na
         df_intrinsic = calculation.make_df_intrisic(intrinsic_path, df_xyz)
         
         #固有変形を計算
+        #inheretn_deformations [x,δx*,δy*,θx*,θy*]
         inherent_deformations = calculation.cal_inherent_deformations(df_xyz, df_intrinsic)
 
         file_name, ext = os.path.splitext(os.path.basename(intrinsic_path))
 
+        #xslsxファイルに書き込み
+        #write_list_2d()が使えるようにinherent_deformationsを変える
+        inherent_deformations = change_shape(inherent_deformations)
         start_col = 1 + col_num * i + i
 
         ws.cell(row=1, column=start_col, value=file_name)
