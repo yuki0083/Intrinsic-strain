@@ -46,6 +46,9 @@ def cal_inherent_deformations(df_xyz, df_intrinsic):
     x_changes_num_list, x_list = cal_intrinsic.cal_x_change_num_list_and_x(x_series)
     #δx*を計算
     inherent_x_list = cal_intrinsic.cal_inherent_x(df_xyz, df_intrinsic, x_changes_num_list)
+    #δy*を計算
+    inherent_y_list = cal_intrinsic.cal_inherent_y(df_xyz, df_intrinsic, x_changes_num_list)
+    
     return 0
 
 """
