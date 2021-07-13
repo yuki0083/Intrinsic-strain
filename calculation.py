@@ -9,15 +9,10 @@ def make_df_xyz(xyz_path):
     df_xyz = utils.make_data_from_csv(xyz_path)#(要素数, 4( 要素番号, x, y ,z))
     #df_intrinsic = utils.make_data_from_csv(intrinsic_path)#(要素数, 7( 要素番号, 塑性ひずみx, 塑性ひずみy ,塑性ひずみz, 塑性ひずみxy, 塑性ひずみyz, 塑性ひずみzx))
     df_xyz = cal_xyz.sort_df_xyz(df_xyz)#座標dfを昇順に並び替え
-
-
     #delta_xの列を追加
     df_xyz['Δx']=0
     df_xyz['Δy']=0
     df_xyz['Δz']=0
-
-
-
     #Δxとx_arrayの変わる番号の計算
     df_xyz, x_changes_num_list = cal_xyz.delta_df_xy(df_xyz, col_num=1)
     #Δyとy_array(z1_num)の変わる番号の計算
@@ -43,7 +38,17 @@ def make_df_intrisic(intrinsic_path, df_xyz):
     df_intrinsic = cal_intrinsic.sort_df_intrinsic(df_intrinsic, df_xyz)
     
     return df_intrinsic
-    """
+
+#固有変形を計算　[x, tendon_force, delta_T, theta_T, theta_L ]
+def cal_inherent_deformations(df_xyz, df_intrinsic):
+    #xを計算
+    x_series = df_xyz['中心(X)']#panda series
+    x_changes_num_list, x_list = cal_intrinsic.cal_x_change_num_list_and_x(x_series)
+    #δx*を計算
+    inherent_x_list = cal_intrinsic.cal_inherent_x(df_xyz, df_intrinsic, x_changes_num_list)
+    return 0
+
+"""
     #dataを結合
     xyz_intrinsic_data = utils.combine(df_xyz, df_intrinsic)
     

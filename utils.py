@@ -142,16 +142,7 @@ def extract_from_data_to_list(data, row_num):
 
     return extracted_list
 
-# δLを計算を計算する関数
-def cal_delta_L(data, delta_z_list, delta_y_list, intrinsic_x_list, h):
-    delta_L = 0
-    for i in range(len(data)):
-        delta_z = delta_z_list[i]
-        delta_y = delta_y_list[i]
-        intrinsic_x = intrinsic_x_list[i]
 
-        delta_L += delta_y * delta_z * intrinsic_x
-    return delta_L/h
 
 # δTを計算を計算する関数
 def cal_delta_T(data, delta_z_list, delta_y_list, intrinsic_y_list, h):

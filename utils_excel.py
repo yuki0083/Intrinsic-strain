@@ -17,16 +17,20 @@ def write_excel_sheet(intrinsic_path_list, input_directory_path, col_num, col_na
     df_xyz = calculation.make_df_xyz(xyz_path)
 
     for i, intrinsic_path in enumerate(intrinsic_path_list):
+        
         #df_intrinsic(ソリッド要素番号,塑性ひずみ(X),塑性ひずみ(Y),塑性ひずみ(Z),塑性ひずみ(XY), 塑性ひずみ(YZ), 塑性ひずみ(ZX))
         df_intrinsic = calculation.make_df_intrisic(intrinsic_path, df_xyz)
         
+        #固有変形を計算
+        inherent_deformations = calculation.cal_inherent_deformations(df_xyz, df_intrinsic)
+
         file_name, ext = os.path.splitext(os.path.basename(intrinsic_path))
 
         start_col = 1 + col_num * i + i
 
         ws.cell(row=1, column=start_col, value=file_name)
         write_list_2d(ws, col_name, start_row=2, start_col=start_col)
-        write_list_2d(ws, results, start_row=3, start_col=start_col)
+        write_list_2d(ws, inherent_deformations, start_row=3, start_col=start_col)
 
     directory_name = os.path.basename(input_directory_path)
     result_file_name = directory_name + '_' + 'result.xlsx'
