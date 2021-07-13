@@ -89,3 +89,37 @@ def cal_inherent_y(df_xyz, df_intrinsic, x_changes_num_list):
         inherent_y_list.append(inherent_y)
     
     return inherent_y_list
+
+#θx*を計算する関数
+def cal_theta_x(df_xyz, df_intrinsic, x_changes_num_list):
+    #dfから値を抽出
+    delta_y_list = df_xyz['Δy'].tolist()
+    delta_z_list = df_xyz['Δz'].tolist()
+    h_list = df_xyz['h'].tolist()
+    zc_list = df_xyz['zc'].tolist()
+    z_list = df_xyz['中心(Z)'].tolist()
+    intrinsic_x_list = df_intrinsic['塑性ひずみ(X)'].tolist()
+
+    theta_x_list = []
+    for i in range(len(x_changes_num_list)):
+       #分割行番号
+        x_num = x_changes_num_list[i]
+        if i == len(x_changes_num_list)-1 :#最後
+            x_num_next = len(df_xyz)
+        else:
+            x_num_next = x_changes_num_list[i+1]
+
+        theta_x = 0
+        for j in range(x_num, x_num_next):
+            delta_z = delta_z_list[j]
+            delta_y = delta_y_list[j]
+            intrinsic_x = intrinsic_x_list[j]
+            h = h_list[j]
+            zc = zc_list[j]
+            z = z_list[j]
+
+
+            theta_x += delta_y * delta_z * intrinsic_x * (z-zc) / (h**3/12)
+        theta_x_list.append(theta_x)
+    
+    return theta_x_list
