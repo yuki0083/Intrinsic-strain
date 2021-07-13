@@ -1,9 +1,10 @@
 import csv
 import utils
 import cal_xyz
+import cal_intrinsic
 
 #座標関連の計算をする関数
-def make_df_xyz(xyz_path = './xyz-coordinate.csv'):
+def make_df_xyz(xyz_path):
     #csvを読み込みdfに変換
     df_xyz = utils.make_data_from_csv(xyz_path)#(要素数, 4( 要素番号, x, y ,z))
     #df_intrinsic = utils.make_data_from_csv(intrinsic_path)#(要素数, 7( 要素番号, 塑性ひずみx, 塑性ひずみy ,塑性ひずみz, 塑性ひずみxy, 塑性ひずみyz, 塑性ひずみzx))
@@ -35,6 +36,13 @@ def make_df_xyz(xyz_path = './xyz-coordinate.csv'):
 
     return df_xyz
 
+#塑性ひずみのファイルをdf_xyzと同じように並び変える
+def make_df_intrisic(intrinsic_path, df_xyz):
+    df_intrinsic = utils.make_data_from_csv(intrinsic_path)
+    #df_xyzと同じようにdf_intrinscを並び変える
+    df_intrinsic = cal_intrinsic.sort_df_intrinsic(df_intrinsic, df_xyz)
+    
+    return df_intrinsic
     """
     #dataを結合
     xyz_intrinsic_data = utils.combine(df_xyz, df_intrinsic)

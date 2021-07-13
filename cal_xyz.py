@@ -87,8 +87,6 @@ def delta_df_z(df_xyz, y_changes_num_list, z_top=0):
         delta_z_array_divided, zf_old = cal_delta_z(z_array_divided, z_top)
         delta_z_array = np.append(delta_z_array, delta_z_array_divided)
         
-        #TODO z_cを計算
-
         if(zf_num+1 == len(z_array)):
             df_xyz[delta_col_name] = delta_z_array  #df_xyzに書き込み
             return df_xyz
@@ -165,6 +163,6 @@ def cal_h_zc(df_xyz, y_changes_num_list):
     
     #df_xyzに書き込み
     df_xyz['h'] = h_array
-    df_xyz['zc'] = zc_array
+    df_xyz['zc'] = zc_array      #TODO z_c?
 
     return df_xyz    

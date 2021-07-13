@@ -13,10 +13,13 @@ def write_excel_sheet(intrinsic_path_list, input_directory_path, col_num, col_na
     # ws = wb.active
     ws = wb.worksheets[0]  # シートの指定
 
+    #df_xyz(ソリッド要素番号,中心(X),中心(Y),中心(Z),Δx,Δy,Δz)
+    df_xyz = calculation.make_df_xyz(xyz_path)
+
     for i, intrinsic_path in enumerate(intrinsic_path_list):
-
-        df_xyz = calculation.make_df_xyz(xyz_path)
-
+        #df_intrinsic(ソリッド要素番号,塑性ひずみ(X),塑性ひずみ(Y),塑性ひずみ(Z),塑性ひずみ(XY), 塑性ひずみ(YZ), 塑性ひずみ(ZX))
+        df_intrinsic = calculation.make_df_intrisic(intrinsic_path, df_xyz)
+        
         file_name, ext = os.path.splitext(os.path.basename(intrinsic_path))
 
         start_col = 1 + col_num * i + i
