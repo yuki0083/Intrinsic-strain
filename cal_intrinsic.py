@@ -6,7 +6,7 @@ def sort_df_intrinsic(df_intrinsic, df_xyz):
 #xの値が変化する番号をリストに保存
 # #TODO delta_df_xyzと同じ処理をしている
 def cal_x_change_num_list_and_x(x_array):
-    mod = 0.00001
+    mod = 0.0001
     x_list = x_array.tolist()
     x_change_num_list = []
     x_change_list = []

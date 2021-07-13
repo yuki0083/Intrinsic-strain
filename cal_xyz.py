@@ -12,7 +12,7 @@ def sort_df_xyz(df_xyz):
 
 
 #大小関係の数値誤差を抑制する変数
-mod = 0.00001
+mod = 0.0001
 #Δx,Δy,Δzを計算する関数  #x_array,y_arrayの値が変わる位置を計算する関数
 def delta_df_xy(df_xyz, col_num):#col_num=1 == 中心(x)
     
