@@ -15,7 +15,7 @@ def write_excel_sheet(intrinsic_path_list, input_directory_path, col_num, col_na
 
     for i, intrinsic_path in enumerate(intrinsic_path_list):
 
-        results = calculation.calculation(xyz_path, intrinsic_path, h, E)
+        df_xyz = calculation.make_df_xyz(xyz_path)
 
         file_name, ext = os.path.splitext(os.path.basename(intrinsic_path))
 
