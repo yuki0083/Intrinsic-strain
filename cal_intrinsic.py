@@ -7,6 +7,7 @@ def sort_df_intrinsic(df_intrinsic, df_xyz):
 # #TODO delta_df_xyzと同じ処理をしている
 def cal_x_change_num_list_and_x(x_array):
     mod = 0.0001
+
     x_list = x_array.tolist()
     x_change_num_list = []
     x_change_list = []
