@@ -1,3 +1,10 @@
-座標のcsvファイルのパスを入力
+(env) C:\Users\yuki\Desktop\python\Intrinsic-strain>python main.py
+座標のcsvファイルのパスを入力:C:\Users\yuki\Desktop\python\Intrinsic-strain\plate-cordinate\曲率試験片\xyz-90°(std).csv
+塑性ひずみcsvファイルのあるディレクトリパスを入力:C:\Users\yuki\Desktop\python\Intrinsic-strain\結果\曲げ剛性\曲率試験片\90°方向
+z_top(x最小,y最小の要素の内zが最も大きい要素の表面の座標)を入力:5.718095065
 
-塑性ひずみcsvファイルのあるディレクトリパスを入力
+(env) C:\Users\yuki\Desktop\python\Intrinsic-strain>python main.py
+座標のcsvファイルのパスを入力:C:\Users\yuki\Desktop\python\Intrinsic-strain\plate-cordinate\曲率試験片\xyz-0°(std)model.csv
+塑性ひずみcsvファイルのあるディレクトリパスを入力:C:\Users\yuki\Desktop\python\Intrinsic-strain\結果\曲げ剛性\曲率試験片\0°
+方向
+z_top(x最小,y最小の要素の内zが最も大きい要素の表面の座標)を入力:0
